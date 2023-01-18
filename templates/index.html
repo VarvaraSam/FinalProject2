@@ -1,1 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+ <title> План </title>
+  {% macro render_plan(year, relation) %}
+ <p>
+ <b>Год: {{year}}</b>
+ </p>
+ {% set n = len(relation) %}
+ {% if n != 0 %}
+ <table class = "table">
+ <tr>
+ {% for name in relation.dtypes.index %}
+ <th>{{name}}</th>
+ {% endfor %}
+ </tr>
+ <tbody>
+ {% for i in range(n) %}
+ <tr>
+ {% for name in relation.dtypes.index %}
+ <td>
+ {{ relation.loc[i, name] }}
+</td>
+ {% endfor %}
+ </tr>
+ {% endfor %}
+ </tbody>
+ </table>
+  {% else %}
+  <b>На этот год нет плана</b>
+  {% endif %}
+ {% endmacro %}
 
+ {%macro render_add_btn(year) %}
+ <form action = "{{url_for('plan')}}" method ="get">
+  <input type="hidden" name="addplan" value={{year}}>
+  <input class="button" type="submit" value="Добавить план">
+  </form>
+ {%endmacro%}
+
+  {%macro render_change_btn() %}
+  <form action = "{{url_for('plan')}}" method ="get">
+  <input type="hidden" name="changeplan" value={{year}}>
+  <input class="button" type="submit" value="Изменить план">
+  </form>
+ {%endmacro%}
+</head>
+<body>
+<div class=wrapper>
+ <div class=menu>
+ <ul>
+  <li class = active><a href={{url_for("index")}}>План</a></li>
+  <li class = active><a href={{url_for("farm")}}>Фермы</a></li>
+ </ul>
+ </div>
+ <form action = '' method ="get">
+  <input name="year" type="number" >
+  <input class="button" type="submit" value="Найти">
+ </form>
+  {% set pl = len(plan) %}
+ {{ render_plan(year,plan) }}
+ {%if year > nowyear %}
+  {%if pl == 0 %}
+   {{ render_add_btn(year)}}
+  {%else%}
+   {{ render_change_btn()}}
+  {%endif%}
+ {%endif%}
+</div>
+</body>
+</html>

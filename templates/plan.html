@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <title>План</title>
+    {% macro render_list(products, len) %}
+<select name="tempproduct" required>
+ {% set n = len(products) %}
+ {% for i in range(n) %}
+ {% set p = products.loc[i, "Продукт"] %}
+ <option value={{p}}> {{p}} </option>
+ {% endfor %}
+</select>
+{% endmacro %}
+
+ {% macro render_input()%}
+<input type="number" name="tempamount">
+{%endmacro%}
+
+{% macro render_acc_btn()%}
+<input class="button" type="submit" value="ОК">
+{%endmacro%}
+
+{%macro render_line(products,len)%}
+     <form action="" method="get">
+         <input type = 'hidden' name = "localyear" value={{year}}>
+        {{render_list(products,len)}}
+        {{render_input()}}
+        {{render_acc_btn()}}
+     </form>
+{%endmacro%}
+
+  {% macro render_plan(relation,len) %}
+ {% set n = len(relation) %}
+ {% if n != 0 %}
+ <table class = "table">
+ <tr>
+ {% for name in relation.dtypes.index %}
+ <th>{{name}}</th>
+ {% endfor %}
+ </tr>
+ <tbody>
+ {% for i in range(n) %}
+ <tr>
+ {% for name in relation.dtypes.index %}
+ <td>
+{% if name == "" %}
+ <form action = '' method ="get">
+ <input type="hidden" name = 'delete' value={{relation.loc[i,"Продукт"]}}>
+     <input type = 'hidden' name = "delyear" value={{year}}>
+ <input class="button" type="submit" value="Удалить">
+ </form>
+  {% else %}
+      {{ relation.loc[i, name] }}
+  {% endif %}
+</td>
+{% endfor %}
+ </tr>
+ {% endfor %}
+ </tbody>
+ </table>
+  {% else %}
+  <b>На этот год нет плана</b>
+  {% endif %}
+ {% endmacro %}
+</head>
+<body>
+<div class=wrapper>
+ <div class=menu>
+ <ul>
+  <li class = active><a href={{url_for("index")}}>План</a></li>
+  <li class = active><a href={{url_for("farm")}}>Фермы</a></li>
+ </ul>
+ </div>
+<b>Год: {{year}}</b>
+{{render_plan(plan,len)}}
+{{render_line(products,len)}}
+ <form action = '{{url_for("farm")}}' method ="get">
+  <input type = 'hidden' name = "year" value={{year}}>
+  <input class="button" type="submit" value="Рассчитать">
+ </form>
+</div>
+</body>
+</html>

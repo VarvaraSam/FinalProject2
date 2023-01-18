@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <title>Фермы</title>
+ {% macro render_tasks(farm, tasks,len,year) %}
+ {% if tasks is string %}
+ {{tasks}}
+   <form action = "{{url_for('plan')}}" method ="get">
+  <input type="hidden" name="changeplan" value={{year}}>
+  <input class="button" type="submit" value="Изменить план">
+  </form>
+ {%else%}
+ {% set n = len(farm) %}
+  {% set j = len(tasks) %}
+ {% for i in range(n) %}
+
+ <table class = "table">
+ <tr>
+ <th> {{ farm.loc[i, "farm_name"] }}</th>
+ </tr>
+ <tbody>
+ {% for k in range(j) %}
+  {% if farm.loc[i, "farm_name"] == tasks.loc[k, "farm_name"]%}
+<tr>
+ {% for name in tasks.dtypes.index %}
+ {%if name != "farm_name"%}
+ <td>
+ {{ tasks.loc[k, name] }}
+</td>
+ {%endif%}
+ {% endfor %}
+ </tr> {%endif%}
+ {%endfor%}
+ </tbody>
+ </table>
+  {% endfor %}
+{%endif%}
+ {% endmacro %}
+</head>
+<body>
+<div class=wrapper>
+ <div class=menu>
+ <ul>
+  <li class = active><a href={{url_for("index")}}>План</a></li>
+  <li class = active><a href={{url_for("farm")}}>Фермы</a></li>
+ </ul>
+ </div>
+ <form action = '' method ="get">
+  <input name="year" type="number" value={{year}}>
+  <input class="button" type="submit" value="Найти">
+ </form>
+{{render_tasks(farm, tasks, len,year) }}
+ </div>
+</body>
+</html>
