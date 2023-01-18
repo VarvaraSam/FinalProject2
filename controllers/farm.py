@@ -1,22 +1,25 @@
-import datetime
 from app import app
+import datetime
 from flask import render_template, request
 from utils import get_db_connection
-from models.index_model import get_plan
-@app.route('/', methods=['get'])
-def index():
+from models.farm_model import get_tasks,get_farms,get_t,del_tasks
+@app.route('/farm', methods=['get'])
+def farm():
    now = datetime.datetime.now()
    year = now.year
    conn = get_db_connection()
    if request.values.get('year'):
       year = int(request.values.get('year'))
-   df_planByYear = get_plan(conn, year)
-
+      if year> now.year:
+         del_tasks(conn,year)
+   get_t(conn,year)
+   tasks = get_tasks(conn,year)
+   farm=get_farms(conn,year)
    html = render_template(
-   'index.html',
+   'farm.html',
    year = year,
-   nowyear = now.year,
-   plan = df_planByYear,
+   farm=farm,
+   tasks = tasks,
    len = len
    )
    return html
