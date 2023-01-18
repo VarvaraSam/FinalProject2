@@ -1,1 +1,133 @@
+/* меню страниц */
+.menu {
+ background-color: #f1f1f1;
+ box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.4);
+ width: 100%;
+}
+/*Теперь уберем маркеры со списка и произведем выравнивание его элементов в одну
+линию*/
+.menu li {
+ display: inline-block;
+ vertical-align: top;
+ padding: 10px;
+ color: #6f6d6d;
+}
+.menu a {
+ text-decoration: none; /* Убирает подчеркивание для ссылок */
+ color: #6f6d6d;
+ }
+.menu li:hover {
+ background-color: #f87777;
+ cursor: pointer;
+ color: #f8f8f8;
+}
+.menu ul {
+ padding: 0px;
+}
+.active{
+ background-color: #f87777;
+ color: #f8f8f8;
+}
+.active a:visited{
+ color: #f8f8f8;
+}
+.menu a:hover{
+ color: #f8f8f8;
+}
+.block {
+ padding: 10px 20px;
+}
+.field {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+}
+.filters{
+margin: 10px;
+width: 15%;
+}
 
+.param{
+padding: 15px 15px;
+background: #f87777;
+width: 160px;
+}
+.book{
+width:300px;
+background: #f87777;
+padding: 15px 15px;
+margin: 10px;
+}
+.books{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.sheet{
+padding: 0px 15px;
+}
+
+.table {
+	border: none;
+}
+.table th {
+	font-weight: bold;
+	text-align: left;
+	border: none;
+	padding: 10px 15px;
+	background: #d8d8d8;
+	font-size: 14px;
+}
+.table td {
+	text-align: left;
+	border: none;
+	padding: 10px 15px;
+	font-size: 14px;
+	vertical-align: top;
+}
+.table tr:nth-child(even){
+	background: #f3f3f3;
+}
+}
+.tablewithhead{
+	text-align:left;
+	margin-left:10px;
+}
+/* CSS */
+.button {
+  background-color: #f87777;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #F082AC;
+}
+.wrapper{
+width:500px;
+margin:0 auto;
+}
